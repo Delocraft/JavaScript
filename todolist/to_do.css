@@ -8,18 +8,37 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden; /* Evita que el contenido se salga de la pantalla */
 }
 
-.container {
+.contenedor {
   background: #1e1e1e;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  max-height: 90vh; /* Limita la altura máxima del contenedor */
+  overflow-y: auto; /* Permite el desplazamiento vertical si el contenido es demasiado alto */
+}
+
+#entrada-tarea-contenedor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+#nueva-tarea {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+#btn-agregar {
+    flex-shrink: 0;
 }
 
 input[type="text"] {
   padding: 10px;
-  width: 200px;
+  width: 400px;
   margin-right: 10px;
   border-radius: 5px;
   border: none;
@@ -35,6 +54,22 @@ button {
 ul {
   list-style-type: none;
   padding: 0;
+}
+
+.lista-tareas {
+    list-style-type: none;
+    padding: 0;
+}
+
+.lista-tareas li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.lista-tareas li button {
+    margin-left: 10px;
 }
 
 li {
@@ -56,7 +91,7 @@ button:hover {
   background: #ff1a1a;
 }
 
-li.in-progress {
+li.en-progreso {
   background: #fff3cd;
 }
 

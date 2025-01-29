@@ -1,53 +1,56 @@
-var entradaTarea = document.getElementById("nueva-tarea");
-var botonAgregar = document.querySelector(".btn-agregar");
-var listaTareasIncompletas = document.getElementById("lista-tareas-incompletas");
-var listaTareasCompletadas = document.getElementById("lista-tareas-completadas");
+entradaTarea = document.getElementById("nueva-tarea");
+botonAgregar = document.getElementById("btn-agregar");
+listaTareasIncompletas = document.getElementById("lista-tareas-incompletas");
+listaTareasCompletadas = document.getElementById("lista-tareas-completadas");
 
+//botón agregar
 botonAgregar.addEventListener("click", function () {
-  agregarTarea();
-});
-
-entradaTarea.addEventListener("keypress", function (event) {
-  if (event.key === "Enter") agregarTarea();
-});
-
-var tareas = [];
-
-var agregarTarea = function () {
-  const tarea = entradaTarea.value.trim();
+  tarea = entradaTarea.value.trim();
   if (tarea === "") {
     alert("Por favor, ingrese una tarea");
     return;
   }
 
-  tareas.push({ valor: tarea, estaCompleta: false });
+  tareas.push({ 
+    valor: tarea,
+    estaCompleta: false
+  });
+
   entradaTarea.value = "";
   iniciar();
-};
+});
 
-var iniciar = function () {
+tareas = [];
+
+//inicia el programa
+function iniciar() {
   listaTareasIncompletas.innerHTML = "";
   listaTareasCompletadas.innerHTML = "";
-
+  
   tareas.forEach((tarea, indice) => {
-    var elementoLista = document.createElement("li");
+    elementoLista = document.createElement("li");
     elementoLista.textContent = tarea.valor;
 
     if (tarea.estaCompleta) {
       elementoLista.classList.add("completada");
 
-      var botonEliminar = document.createElement("button");
+      botonEliminar = document.createElement("button");
       botonEliminar.textContent = "Eliminar";
+
+      //botón eliminar
       botonEliminar.onclick = function () {
         tareas.splice(indice, 1);
+        guardarTareas();
         iniciar();
       };
 
       elementoLista.appendChild(botonEliminar);
       listaTareasCompletadas.appendChild(elementoLista);
     } else {
-      var botonCompletar = document.createElement("button");
+      botonCompletar = document.createElement("button");
       botonCompletar.textContent = "Completar";
+
+      //botón completar
       botonCompletar.onclick = function () {
         tareas[indice].estaCompleta = true;
         iniciar();
@@ -57,7 +60,27 @@ var iniciar = function () {
       listaTareasIncompletas.appendChild(elementoLista);
     }
   });
-};
+  guardarTareas();
+}
 
-// Renderizado inicial
+//guarda las tareas de localStorage
+function guardarTareas() {
+  localStorage.clear();
+  tareas.forEach((tarea, indice) => {
+    localStorage.setItem(`${indice}`, `${tarea.valor}|${tarea.estaCompleta}`);
+  });
+}
+
+//carga las tareas de localStorage
+function cargarTareas() {
+  tareas = [];
+  for (let indice = 0; indice < localStorage.length; indice++) {
+    const key = localStorage.key(indice);
+    const [valor, estaCompleta] = localStorage.getItem(key).split('|');
+    tareas.push({ valor, estaCompleta: estaCompleta === 'true' });
+  }
+}
+
+//empieza el programa
+cargarTareas();
 iniciar();
