@@ -10,7 +10,6 @@ class Hormiga {
         
         this.hormiga.style.marginLeft = this.x + "px";
         this.hormiga.style.marginTop = this.y + "px";
-        //llama a todas las funciones
         this.color();
         this.mover();
         this.eliminar();
@@ -35,6 +34,7 @@ class Hormiga {
                 //20% de probabilidad de no moverse
                 direccion = Math.floor(Math.random() * 10);
                 contador = 0;
+                console.log(this.intervaloAleatorio)
             }
             switch (direccion) {
                 case 0: // mover derecha
@@ -82,15 +82,7 @@ class Hormiga {
     eliminar() {
         //cuenta los clicks en cada hormiga
         let contarClicks = 0;
-        // Forzar cursor pointer
-        this.hormiga.style.cursor = "pointer"; 
         this.hormiga.addEventListener('click', () => {
-            //cambia el cursor al hacer clic
-            this.hormiga.style.cursor = "url('./hormiga-click.png'), auto";
-            setTimeout(() => {
-                // Mantener cursor pointer
-                this.hormiga.style.cursor = "pointer"; 
-            }, 100);
             //cada vez se hace click la hormiga cambia de color
             this.color();
             contarClicks++;
@@ -221,7 +213,7 @@ document.getElementById("iniciar").addEventListener('click', () => {
     //cuando se pulsa el boton y la oleada se eliminan
     document.getElementById("iniciar").remove();
     oleadaTexto.remove();
-    crearHormigas(4);
+    crearHormigas(40);
     padre.appendChild(info);
     //se inicia el temporizador
     iniciarTemporizador();
