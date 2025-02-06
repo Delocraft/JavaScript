@@ -7,6 +7,7 @@ class Hormiga {
         this.hormiga = document.createElement("div");
         this.hormiga.className = "hormiga";
         padre.appendChild(this.hormiga);
+        this.pararContador = false;
         
         this.hormiga.style.marginLeft = this.x + "px";
         this.hormiga.style.marginTop = this.y + "px";
@@ -28,13 +29,14 @@ class Hormiga {
         let direccion;
         setInterval(() => {
             //intervalo constante
-            contador++;
+            if(this.pararContador == false){
+                contador++;
+            }
             //un intervalo aleatorio decide cuando la hormiga cambia de direccion
             if (contador == this.intervaloAleatorio) {
                 //20% de probabilidad de no moverse
                 direccion = Math.floor(Math.random() * 10);
                 contador = 0;
-                console.log(this.intervaloAleatorio)
             }
             switch (direccion) {
                 case 0: // mover derecha
@@ -88,8 +90,11 @@ class Hormiga {
             contarClicks++;
             //cuando llega a 3 clicks
             if (contarClicks == 3) {
+                //detiene de aumento del contador
+                this.pararContador = true;
                 //la hormiga se elimina
-                padre.removeChild(this.hormiga);
+                this.hormiga.removeEventListener('click', this.eliminar.bind(this));
+                this.hormiga.remove();
                 //se suma una hormiga matada y se muestra las hormigas matadas y la cantidad total
                 hormigasMatadas++;
                 info.innerHTML = hormigasMatadas + " / " + cantidadHormigas;
@@ -213,7 +218,7 @@ document.getElementById("iniciar").addEventListener('click', () => {
     //cuando se pulsa el boton y la oleada se eliminan
     document.getElementById("iniciar").remove();
     oleadaTexto.remove();
-    crearHormigas(40);
+    crearHormigas(4);
     padre.appendChild(info);
     //se inicia el temporizador
     iniciarTemporizador();

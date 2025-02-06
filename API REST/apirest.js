@@ -47,18 +47,18 @@ async function obtenerDatosPokemon(nombre) {
             contenedorPokemon.style.border = `2px solid ${tipoColores[tipos[0]]}`;
             contenedorPokemon.style.backgroundColor = `${tipoColores[tipos[0]]}33`;
         } else {
-            nombrePokemon.style.background = `linear-gradient(90deg, ${tipoColores[tipos[0]]} 50%, ${tipoColores[tipos[1]]} 50%)`;
+            nombrePokemon.style.background = `linear-gradient(105deg, ${tipoColores[tipos[0]]} 20%, ${tipoColores[tipos[1]]} 80%)`;
             nombrePokemon.style.webkitBackgroundClip = 'text';
             nombrePokemon.style.webkitTextFillColor = 'transparent';
             nombrePokemon.style.backgroundClip = 'text';
             nombrePokemon.style.textFillColor = 'transparent';
-            tiposPokemon.style.background = `linear-gradient(90deg, ${tipoColores[tipos[0]]} 50%, ${tipoColores[tipos[1]]} 50%)`;
+            tiposPokemon.style.background = `linear-gradient(105deg, ${tipoColores[tipos[0]]} 20%, ${tipoColores[tipos[1]]} 80%)`;
             tiposPokemon.style.webkitBackgroundClip = 'text';
             tiposPokemon.style.webkitTextFillColor = 'transparent';
             tiposPokemon.style.backgroundClip = 'text';
             tiposPokemon.style.textFillColor = 'transparent';
             contenedorPokemon.style.border = `2px solid ${tipoColores[tipos[0]]}`;
-            contenedorPokemon.style.background = `linear-gradient(90deg, ${tipoColores[tipos[0]]}33 50%, ${tipoColores[tipos[1]]}33 50%)`;
+            contenedorPokemon.style.background = `linear-gradient(105deg, ${tipoColores[tipos[0]]}33 20%, ${tipoColores[tipos[1]]}33 80%)`;
         }
 
         const general = document.getElementById('general');

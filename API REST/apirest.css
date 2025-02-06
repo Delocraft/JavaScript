@@ -35,18 +35,18 @@ body {
 }
 
 .datos-pokemon {
+    margin-left: 7px;
     font-size: 18px;
     color: #ffffff;
-    margin-top: 20px;
-    text-align: center; /* Centra el texto */
+    text-align: center;
     background: #ffffff;
     padding: 10px;
     border-radius: 10px;
     width: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centra el contenido verticalmente */
-    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center;
+    align-items: center;
 }
 
 .datos-pokemon img {
