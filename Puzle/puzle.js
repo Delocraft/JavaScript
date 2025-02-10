@@ -1,6 +1,9 @@
-const ALTURA = 500; 
-const ANCHURA = 500; 
-const NUM_PIEZAS = 16;
+const DIMENSION_PUZLE = 3;
+const ALTURA_ANCHURA = 500; 
+
+const ALTURA = ALTURA_ANCHURA; 
+const ANCHURA = ALTURA_ANCHURA; 
+const NUM_PIEZAS = DIMENSION_PUZLE * DIMENSION_PUZLE;
 
 const general = document.getElementById("general");
 
@@ -11,9 +14,11 @@ boton.className = "boton";
 
 // imagen
 const imagen = document.createElement("div");
-const imagenSrc = "gato.jpg";
+const imagenActual = "gato.jpg";
 imagen.className = "imagen-puzle";
-imagen.style.backgroundImage = `url(${imagenSrc})`;
+imagen.style.backgroundImage = `url(${imagenActual})`;
+imagen.style.width = ANCHURA + "px";
+imagen.style.height = ALTURA + "px";
 
 // puzle
 const puzle = document.createElement("div");
@@ -31,19 +36,29 @@ puzleArray.forEach(numero => {
     puzleArray.forEach(() => {
         contador ++;
     });
-    const pieza = document.createElement("div");
+    const cuadricula = document.createElement("div");
     if (numero === 0) {
-        pieza.className = "Vacio";
+        cuadricula.className = "Vacio";
     } else if (numero === 1) {
-        pieza.className = "Mal";
+        cuadricula.className = "Mal";
     } else if (numero === 2) {
-        pieza.className = "Bien";
+        cuadricula.className = "Bien";
     }
-    pieza.style.backgroundPosition = 0 + "px", 100;
-    pieza.style.height = Math.sqrt(ALTURA * ANCHURA / contador) + "px";
-    pieza.style.width = Math.sqrt(ALTURA * ANCHURA / contador) + "px";
 
-    puzle.appendChild(pieza);
+    const pieza = document.createElement("div");
+    pieza.className = "pieza";
+    pieza.style.backgroundImage = `url(${imagenActual})`;
+    
+    //-25%
+    pieza.style.backgroundPosition = "-375px -375px";
+    pieza.style.left = (Math.random() * 35) + 7 + "%";
+    pieza.style.top = (Math.random() * 66) + 12 + "%";
+    general.appendChild(pieza);
+    
+    cuadricula.style.height = Math.sqrt(ALTURA * ANCHURA / contador) + "px";
+    cuadricula.style.width = Math.sqrt(ALTURA * ANCHURA / contador) + "px";
+
+    puzle.appendChild(cuadricula);
 });
 
 // añadir
@@ -53,4 +68,5 @@ general.appendChild(puzle);
 
 boton.addEventListener("click", () => {
     general.removeChild(imagen);
+    puzle.style.display = "flex";
 });

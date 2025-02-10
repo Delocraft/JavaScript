@@ -46,21 +46,21 @@ body {
     align-items: center;
     margin: auto;
     position: absolute;
-    top: 50%;
+    top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
 }
 
 .puzle {
-    display: flex;
+    display: none;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: auto;
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 52%;
+    left: 75%;
     transform: translate(-50%, -50%);
 }
 
@@ -74,4 +74,12 @@ body {
 
 .Bien {
     background-color: green;
+}
+
+.pieza {
+    background-color: rgb(255, 0, 230);
+    position: absolute;
+    background-size: 500px 500px;
+    width: 125px;
+    height: 125px;
 }
