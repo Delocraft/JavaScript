@@ -1,0 +1,77 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #000000;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.general {
+    width: 90%;
+    height: 90%;
+    margin-top: 3%;
+    border: 2px solid white;
+}
+
+.boton {
+    position: absolute;
+    top: 0.5%;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 1% 2%;
+    font-size: 1em;
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.boton:hover {
+    background-color: #0056b3;
+}
+
+.imagen-puzle {
+    width: 500px;
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+
+.puzle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.Vacio {
+    background-color: white;
+}
+
+.Mal {
+    background-color: red;
+}
+
+.Bien {
+    background-color: green;
+}

@@ -57,6 +57,7 @@ async function obtenerDatosPokemon(nombre) {
             tiposPokemon.style.webkitTextFillColor = 'transparent';
             tiposPokemon.style.backgroundClip = 'text';
             tiposPokemon.style.textFillColor = 'transparent';
+            contenedorPokemon.style.border = `linear-gradient(105deg, ${tipoColores[tipos[0]]}33 20%, ${tipoColores[tipos[1]]}33 80%)`;
             contenedorPokemon.style.border = `2px solid ${tipoColores[tipos[0]]}`;
             contenedorPokemon.style.background = `linear-gradient(105deg, ${tipoColores[tipos[0]]}33 20%, ${tipoColores[tipos[1]]}33 80%)`;
         }
