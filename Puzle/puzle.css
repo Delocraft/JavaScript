@@ -9,6 +9,7 @@ body {
     align-items: center;
     height: 100vh;
     flex-direction: column;
+    user-select: none; /* Añadir esta línea */
 }
 
 .general {
@@ -64,14 +65,6 @@ body {
 
 .Vacio {
     background-color: rgb(255, 255, 255);
-}
-
-.Mal {
-    background-color: red;
-}
-
-.Bien {
-    background-color: rgb(0, 255, 0);
 }
 
 .pieza {

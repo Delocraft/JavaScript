@@ -1,5 +1,5 @@
 const ALTURA_ANCHURA = 500; //no tocar
-const DIMENSION_PUZLE = 5;
+const DIMENSION_PUZLE = 2;
 const NUM_PIEZAS = DIMENSION_PUZLE * DIMENSION_PUZLE;
 
 const general = document.getElementById("general");
@@ -32,6 +32,8 @@ function CrearPiezas(){
     let intervaloX = 0;
     let contadorX = -1;
     let contadorY = -1;
+    let piezasCompletas = 0;
+    
     puzleArray.forEach(numero => {
         if(intervaloX %DIMENSION_PUZLE === 0){
             contadorX += 1;
@@ -55,22 +57,44 @@ function CrearPiezas(){
     
         cuadricula.style.height = Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS) + "px";
         cuadricula.style.width = Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS) + "px";
-        cuadricula.ondragover = (e) => e.preventDefault();
-        cuadricula.ondrop = (e) => {
-            e.preventDefault();
-            const id = e.dataTransfer.getData("text");
+        cuadricula.ondragover = (arrastrar) => arrastrar.preventDefault();
+        cuadricula.id = `cuadricula-${contadorY}-${contadorX}`;
+        cuadricula.ondrop = (arrastrar) => {
+            arrastrar.preventDefault();
+            const id = arrastrar.dataTransfer.getData("text");
             const pieza = document.getElementById(id);
+            const cuadriculaId = cuadricula.id.replace('cuadricula-', '');
+            const piezaId = pieza.id.replace('pieza-', '');
+            
             if (cuadricula.firstChild) {
                 const reemplazada = cuadricula.firstChild;
+                const reemplazadaId = reemplazada.id.replace('pieza-', '');
+                if (reemplazadaId === cuadriculaId) {
+                    piezasCompletas -= 1;
+                }
                 general.appendChild(reemplazada);
                 reemplazada.style.position = "absolute";
                 reemplazada.style.left = (Math.random() * 31) + 7 + "%";
                 reemplazada.style.top = (Math.random() * 62) + 12 + "%";
             }
+            
             cuadricula.appendChild(pieza);
             pieza.style.position = "relative";
             pieza.style.left = "0";
             pieza.style.top = "0";
+
+            if(piezaId === cuadriculaId){
+                piezasCompletas += 1;
+            }else{
+                piezasCompletas -= 1;
+                if(piezasCompletas < 0){
+                    piezasCompletas = 0;
+                }
+            }
+            console.log(piezasCompletas);
+            if(piezasCompletas == NUM_PIEZAS){
+                console.log("Puzle completado");
+            }
         };
     
         const pieza = document.createElement("div");
@@ -108,4 +132,5 @@ boton.addEventListener("click", () => {
     imagen.style.border = 3 + "px solid rgb(0, 255, 0)";
     CrearPiezas();
     puzle.style.display = "flex";
+    general.removeChild(boton);
 });
