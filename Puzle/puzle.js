@@ -32,9 +32,12 @@ function CrearPiezas(){
     let intervaloX = 0;
     let contadorX = -1;
     let contadorY = -1;
-    let piezasCompletas = 0;
+
+    let vacias = 0;
+    let completadas = 0;
     
-    puzleArray.forEach(numero => {
+    puzleArray.forEach( () => {
+        
         if(intervaloX %DIMENSION_PUZLE === 0){
             contadorX += 1;
         }
@@ -47,13 +50,8 @@ function CrearPiezas(){
         }
         
         const cuadricula = document.createElement("div");
-        if (numero === 0) {
-            cuadricula.className = "Vacio";
-        } else if (numero === 1) {
-            cuadricula.className = "Mal";
-        } else if (numero === 2) {
-            cuadricula.className = "Bien";
-        }
+
+        cuadricula.className = "Vacio";
     
         cuadricula.style.height = Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS) + "px";
         cuadricula.style.width = Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS) + "px";
@@ -63,19 +61,14 @@ function CrearPiezas(){
             arrastrar.preventDefault();
             const id = arrastrar.dataTransfer.getData("text");
             const pieza = document.getElementById(id);
-            const cuadriculaId = cuadricula.id.replace('cuadricula-', '');
-            const piezaId = pieza.id.replace('pieza-', '');
             
-            if (cuadricula.firstChild) {
+            if (cuadricula.firstChild && cuadricula.firstChild !== pieza) {
                 const reemplazada = cuadricula.firstChild;
-                const reemplazadaId = reemplazada.id.replace('pieza-', '');
-                if (reemplazadaId === cuadriculaId) {
-                    piezasCompletas -= 1;
-                }
                 general.appendChild(reemplazada);
                 reemplazada.style.position = "absolute";
                 reemplazada.style.left = (Math.random() * 31) + 7 + "%";
                 reemplazada.style.top = (Math.random() * 62) + 12 + "%";
+                reemplazada.reemplazada = true;
             }
             
             cuadricula.appendChild(pieza);
@@ -83,18 +76,28 @@ function CrearPiezas(){
             pieza.style.left = "0";
             pieza.style.top = "0";
 
-            if(piezaId === cuadriculaId){
-                piezasCompletas += 1;
-            }else{
-                piezasCompletas -= 1;
-                if(piezasCompletas < 0){
-                    piezasCompletas = 0;
+            const cuadriculaId = cuadricula.id.replace('cuadricula-', '');
+            const piezaId = pieza.id.replace('pieza-', '');
+
+            if (cuadriculaId === piezaId && !pieza.correctamenteColocada) {
+                completadas += 1;
+                pieza.correctamenteColocada = true;
+            } else if (cuadriculaId !== piezaId && pieza.correctamenteColocada) {
+                completadas -= 1;
+                pieza.correctamenteColocada = false;
+                if (completadas < 0) {
+                    completadas = 0;
                 }
             }
-            console.log(piezasCompletas);
-            if(piezasCompletas == NUM_PIEZAS){
-                console.log("Puzle completado");
+
+            if (pieza.reemplazada) {
+                pieza.reemplazada = false;
+            } else {
+                if (completadas === NUM_PIEZAS) {
+                    alert("¡Has ganado!");
+                }
             }
+            console.log(completadas);
         };
     
         const pieza = document.createElement("div");
@@ -107,6 +110,8 @@ function CrearPiezas(){
         pieza.style.backgroundImage = `url(${imagenActual})`;
         pieza.style.height = Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS) + "px";
         pieza.style.width = Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS) + "px";
+        pieza.correctamenteColocada = false;
+        pieza.reemplazada = false;
         
         let posicionesPiezasX = contadorX*(Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS));
         let posicionesPiezasY = contadorY*(Math.sqrt(ALTURA_ANCHURA * ALTURA_ANCHURA / NUM_PIEZAS));
