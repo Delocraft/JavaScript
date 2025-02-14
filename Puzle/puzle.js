@@ -1,5 +1,5 @@
 const ALTURA_ANCHURA = 500; //no tocar
-const DIMENSION_PUZLE = 3;
+const DIMENSION_PUZLE = 4;
 const NUM_PIEZAS = DIMENSION_PUZLE * DIMENSION_PUZLE;
 
 const general = document.getElementById("general");
